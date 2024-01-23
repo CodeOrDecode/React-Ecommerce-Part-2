@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecommerce App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .smalldiv {
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            padding: 15px;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        .smalldiv:hover {
+            background-color: rgb(206, 201, 201);
+        }
+
+        .bigdiv {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 80px;
+            width: 70%;
+        }
+
+        .navbar {
+            width: 100vw;
+            height: 70px;
+            background-color: beige;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            position: fixed;
+            top: 0px;
+            z-index: 10;
+        }
+
+        #cart {
+            cursor: pointer;
+        }
+
+        #iscart {
+            position: absolute;
+            top: 80px;
+            right: 0px;
+            width: 294px;
+            text-align: center;
+            background-color: bisque;
+        }
+
+        .styleh4 {
+            margin-top: 14px;
+        }
+
+        .cartdiv {
+            text-align: left;
+            padding: 5px;
+        }
+
+        .totalh2 {
+            margin-top: 15px;
+            text-align: left;
+            padding: 6px;
+        }
+
+        .deletebutt {
+            padding: 8px 12px;
+            background-color: beige;
+            font-family: 'Roboto', sans-serif;
+            border: none;
+            outline: none;
+            margin-top: 10px;
+            cursor: pointer;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+        }
+
+        .stylebutton {
+            margin-top: 16px;
+            padding: 8px 14px;
+            cursor: pointer;
+            background-color: rgb(51, 51, 51);
+            color: white;
+            font-size: 14px;
+            font-family: 'Roboto', sans-serif;
+            border: none;
+            outline: none;
+            margin-right: 16px;
+        }
+
+        .stylebutton:hover {
+            background-color: white;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+
+</html>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+
+
+<script type="text/babel">
+
+
+    let allData = [
+        {
+            "id": 1,
+            "name": "Smartphone XYZ",
+            "category": "Electronics",
+            "price": 499,
+            "stock": 100,
+            "brand": "TechCo",
+            "rating": 4.5,
+            "quantity": 1
+        },
+        {
+            "id": 2,
+            "name": "Laptop ABC",
+            "category": "Electronics",
+            "price": 899,
+            "stock": 50,
+            "brand": "TechWorld",
+            "rating": 4.8,
+            "quantity": 1
+        },
+        {
+            "id": 3,
+            "name": "Wireless Headphones",
+            "category": "Electronics",
+            "price": 129,
+            "stock": 75,
+            "brand": "AudioTech",
+            "rating": 4.2,
+            "quantity": 1
+        },
+        {
+            "id": 4,
+            "name": "Fitness Tracker",
+            "category": "Fitness",
+            "price": 79,
+            "stock": 120,
+            "brand": "FitGear",
+            "rating": 4.0,
+            "quantity": 1
+        },
+        {
+            "id": 5,
+            "name": "Coffee Maker",
+            "category": "Home & Kitchen",
+            "price": 49,
+            "stock": 80,
+            "brand": "HomeCafe",
+            "rating": 4.6,
+            "quantity": 1
+        },
+        {
+            "id": 6,
+            "name": "Graphic Design Software",
+            "category": "Software",
+            "price": 199,
+            "stock": 30,
+            "brand": "CreativeSoft",
+            "rating": 4.9,
+            "quantity": 1
+        },
+        {
+            "id": 7,
+            "name": "Men's Running Shoes",
+            "category": "Fashion",
+            "price": 69,
+            "stock": 60,
+            "brand": "AthleticStyle",
+            "rating": 4.3,
+            "quantity": 1
+        },
+        {
+            "id": 8,
+            "name": "Cookware Set",
+            "category": "Home & Kitchen",
+            "price": 129,
+            "stock": 40,
+            "brand": "ChefMaster",
+            "rating": 4.7,
+            "quantity": 1
+        },
+        {
+            "id": 9,
+            "name": "Digital Camera",
+            "category": "Electronics",
+            "price": 299,
+            "stock": 25,
+            "brand": "CaptureTech",
+            "rating": 4.5,
+            "quantity": 1
+        },
+        {
+            "id": 10,
+            "name": "Gaming Mouse",
+            "category": "Gaming",
+            "price": 59,
+            "stock": 90,
+            "brand": "GamePro",
+            "rating": 4.4,
+            "quantity": 1
+        },
+        {
+            "id": 11,
+            "name": "Portable Bluetooth Speaker",
+            "category": "Electronics",
+            "price": 39,
+            "stock": 110,
+            "brand": "SoundWave",
+            "rating": 4.1,
+            "quantity": 1
+        },
+        {
+            "id": 12,
+            "name": "Baby Stroller",
+            "category": "Baby & Kids",
+            "price": 149,
+            "stock": 70,
+            "brand": "TinyTot",
+            "rating": 4.6,
+            "quantity": 1
+        },
+        {
+            "id": 13,
+            "name": "Office Chair",
+            "category": "Furniture",
+            "price": 119,
+            "stock": 55,
+            "brand": "ErgoComfort",
+            "rating": 4.8,
+            "quantity": 1
+        },
+        {
+            "id": 14,
+            "name": "Smart Watch",
+            "category": "Electronics",
+            "price": 179,
+            "stock": 35,
+            "brand": "WristTech",
+            "rating": 4.3,
+            "quantity": 1
+        },
+        {
+            "id": 15,
+            "name": "Kitchen Blender",
+            "category": "Home & Kitchen",
+            "price": 69,
+            "stock": 75,
+            "brand": "BlendMaster",
+            "rating": 4.5,
+            "quantity": 1
+        },
+        {
+            "id": 16,
+            "name": "Women's Handbag",
+            "category": "Fashion",
+            "price": 89,
+            "stock": 50,
+            "brand": "ChicStyle",
+            "rating": 4.2,
+            "quantity": 1
+        },
+        {
+            "id": 17,
+            "name": "Security Camera System",
+            "category": "Home Security",
+            "price": 249,
+            "stock": 20,
+            "brand": "SecureGuard",
+            "rating": 4.7,
+            "quantity": 1
+        },
+        {
+            "id": 18,
+            "name": "Men's Watch",
+            "category": "Fashion",
+            "price": 129,
+            "stock": 65,
+            "brand": "TimeMaster",
+            "rating": 4.6,
+            "quantity": 1
+        },
+        {
+            "id": 19,
+            "name": "Wireless Keyboard and Mouse",
+            "category": "Electronics",
+            "price": 59,
+            "stock": 85,
+            "brand": "ConnectTech",
+            "rating": 4.4,
+            "quantity": 1
+        },
+        {
+            "id": 20,
+            "name": "Air Purifier",
+            "category": "Home & Living",
+            "price": 179,
+            "stock": 40,
+            "brand": "PureAir",
+            "rating": 4.9,
+            "quantity": 1
+        }
+    ]
+
+
+    function Smallcards({ ele, additems }) {
+        return <div className="smalldiv">
+            <img src="https://placehold.co/300x200" alt="" />
+            <h2>{ele.name}</h2>
+            <h3>{ele.category}</h3>
+            <h2>{ele.price}</h2>
+            <p>{ele.brand}</p>
+            <p>Rating is : {ele.rating}</p>
+            <button className="stylebutton" onClick={() => { additems(ele) }}>Add to Cart</button>
+        </div>
+
+    }
+    function Products({ allData, additems }) {
+
+        return <div className="bigdiv">
+            {allData.map((ele, index) => {
+                return <Smallcards key={index} ele={ele} additems={additems} />
+            })}
+
+
+        </div>
+
+    }
+
+    function Navbar({ items }) {
+        return <div className="navbar">
+            <div>Items : {items}</div>
+        </div>
+
+    }
+
+
+
+    function Cart({ items, deleteProduct, setItems, addCount, decreasecount }) {
+        let total = 0;
+
+        for (let i = 0; i < items.length; i++) {
+            total = total + (items[i].price * items[i].quantity);
+        }
+        return <div id="iscart">
+            <h3 id="cart">Cart</h3>
+            {items.length == 0 && <h4 className="styleh4">No Product in Cart now </h4>}
+
+            {items.map((ele, index) => {
+                return <div className="cartdiv" key={index}>
+                    <img src="https://placehold.co/300x200" alt="" />
+                    <h2>{ele.name}</h2>
+                    <h3>{ele.category}</h3>
+                    <h2>{ele.price}</h2>
+                    <p>{ele.brand}</p>
+                    <p>Rating is : {ele.rating}</p>
+                    <h4>Quantity is :{ele.quantity}</h4>
+                    <div>
+                        <button className="stylebutton" onClick={() => { addCount(index) }}>Add Quantity</button>
+
+                        <button className="stylebutton" onClick={() => { decreasecount(index) }}>Decrease Quantity</button>
+                    </div>
+                    <button className="deletebutt" onClick={() => { deleteProduct(index) }}>Delete</button>
+
+                </div>
+            })}
+
+            <h3 className="totalh2">Total : {total}</h3>
+        </div>
+    }
+
+
+
+    function App() {
+
+        let [items, setItems] = React.useState([])
+
+        function additems(ele) {
+            let maintain = false;
+            let repeatside = items.filter((pro) => {
+                if (pro.name == ele.name) {
+                    maintain = true
+                }
+            })
+
+            if (maintain) {
+                alert("Item is aleady in the cart")
+            }
+            else {
+                setItems([...items, { name: ele.name, category: ele.category, price: ele.price, brand: ele.brand, rating: ele.rating, quantity: ele.quantity }])
+            }
+        }
+
+
+        function deleteProduct(id) {
+            let newItems = items.filter((ele, index) => {
+                if (id != index) {
+                    return ele;
+                }
+            })
+            setItems(newItems);
+        }
+
+        function addCount(value) {
+            let newProducts = items.map((ele, index) => {
+                if (index == value) {
+                    ele.quantity = ele.quantity + 1;
+                    return ele;
+                }
+                else {
+                    return ele;
+                }
+            })
+            setItems(newProducts);
+
+        }
+
+        function decreasecount(value) {
+            let vanish = false
+            items.forEach((ele, index) => {
+                if (index == value && ele.quantity == 1) {
+                    vanish = true
+                }
+            })
+
+            if (vanish) {
+                let newcartitems = items.filter((product, index) => {
+                    if (index != value) {
+                        return product;
+                    }
+                })
+                setItems(newcartitems);
+            }
+            else {
+                let dereaseit = items.map((product, index) => {
+                    if (index == value) {
+                        product.quantity = product.quantity - 1;
+                        return product
+                    }
+                    else {
+                        return product;
+                    }
+                })
+                setItems(dereaseit);
+            }
+        }
+        return <>
+            <Navbar items={items.length} />
+            <Products allData={allData} items={items} additems={additems} />
+            <Cart items={items} deleteProduct={deleteProduct} setItems={setItems} addCount={addCount} decreasecount={decreasecount} />
+        </>
+    }
+
+
+
+    let dom = ReactDOM.createRoot(document.getElementById("root"));
+    dom.render(<App />);
+</script>
